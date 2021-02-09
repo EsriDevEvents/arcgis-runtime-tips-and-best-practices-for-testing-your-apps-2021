@@ -1,0 +1,2 @@
+# ArcGIS_Runtime_Tips_and_Best_Practices_for_Testing_Your_Apps
+Test projects used in DevSummit 2021 demo theater

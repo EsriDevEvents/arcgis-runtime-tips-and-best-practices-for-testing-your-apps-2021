@@ -53,6 +53,7 @@ Item {
 
                 // advanced testing - check pixel data on left-most pixels to see if
                 // basemap with blue ocean was rendered
+                //mapView.exportImage("/path/to/image");
 
                 // this is not needed for the test, it is only to allow a visual inspection
                 // for demonstration purposes
@@ -81,6 +82,7 @@ Item {
 
                 // advanced testing - check pixel data on left-most pixels to see if
                 // gray map background is displayed since wraparound was disabled
+                //mapView.exportImage("/path/to/image");
 
                 // this is not needed for the test, it is only to allow a visual inspection
                 // for demonstration purposes

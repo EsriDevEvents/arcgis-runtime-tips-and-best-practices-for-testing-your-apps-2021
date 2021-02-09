@@ -29,6 +29,8 @@ TestCase {
 
         let loadStatusFromSignal = Enums.LoadStatusUnknown;
 
+        // handle the async operation, this may be callbacks, signals
+        // or events based on your Runtime SDK
         map.loadStatusChanged.connect(function() {
             loadStatusFromSignal = map.loadStatus;
         });
@@ -66,17 +68,7 @@ TestCase {
         tryCompare(map, "loadStatus", Enums.LoadStatusLoaded);
     }
 
-    function test_6_with_failure() {
-        const map = ArcGISRuntimeEnvironment.createObject("Map", {initUrl: m_webMapUrl});
-
-        map.load();
-
-        tryCompare(map, "loadStatus", Enums.LoadStatusLoaded);
-
-        compare(map.operationalLayers.count, -1);
-    }
-
-    function test_7_data_driven_test_data() {
+    function test_6_data_driven_test_data() {
         return [
             {
                 tag: "web map url",
@@ -93,11 +85,32 @@ TestCase {
         ];
     }
 
-    function test_7_data_driven_test(data) {
+    function test_6_data_driven_test(data) {
         const map = ArcGISRuntimeEnvironment.createObject("Map", {initUrl: data.url});
 
         map.load();
 
         tryCompare(map, "loadStatus", Enums.LoadStatusLoaded);
+    }
+
+    function test_7_with_failure() {
+        const map = ArcGISRuntimeEnvironment.createObject("Map", {initUrl: m_webMapUrl});
+
+        map.load();
+
+        tryCompare(map, "loadStatus", Enums.LoadStatusLoaded);
+
+        compare(map.operationalLayers.count, 16);
+    }
+
+    function test_8_with_unknown_failure() {
+        const map = ArcGISRuntimeEnvironment.createObject("Map", {initUrl: m_webMapUrl});
+
+        map.load();
+
+        tryCompare(map, "loadStatus", Enums.LoadStatusLoaded);
+
+//        expectFail("", "unknown failure, need to follow up with GIS analyst");
+        compare(map.operationalLayers.count, 16);
     }
 }

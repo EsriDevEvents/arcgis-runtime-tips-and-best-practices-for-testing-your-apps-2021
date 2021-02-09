@@ -51,8 +51,10 @@ void MapTestGui::test_1_wraparound()
   QTRY_COMPARE(map->loadStatus(), LoadStatus::Loaded);
 
   // set a viewpoint at the edge of the wraparound boundary
-  m_graphicsView->setViewpoint(Viewpoint(Envelope(-20200191.801510714, 4284.2465115027735,
-                                                  -19459110.135313917, 983824.64175089251)),
+  m_graphicsView->setViewpoint(Viewpoint(Envelope(-20200191.801510714,
+                                                  4284.2465115027735,
+                                                  -19459110.135313917,
+                                                  983824.64175089251)),
                                2.5);
 
   // now wait for the view's draw status to be complete
@@ -60,6 +62,7 @@ void MapTestGui::test_1_wraparound()
 
   // advanced testing - check pixel data on left-most pixels to see if
   // basemap with blue ocean was rendered
+  //m_graphicsView->exportImage();
 
   // this is not needed for the test, it is only to allow a visual inspection
   // for demonstration purposes
@@ -77,12 +80,15 @@ void MapTestGui::test_2_no_wraparound()
   QTRY_COMPARE(map->loadStatus(), LoadStatus::Loaded);
 
   // set a viewpoint at the edge of the wraparound boundary
-  m_graphicsView->setViewpoint(Viewpoint(Envelope(-20200191.801510714, 4284.2465115027735,
-                                                  -19459110.135313917, 983824.64175089251)),
+  m_graphicsView->setViewpoint(Viewpoint(Envelope(-20200191.801510714,
+                                                  4284.2465115027735,
+                                                  -19459110.135313917,
+                                                  983824.64175089251)),
                                2.5);
 
   // advanced testing - check pixel data on left-most pixels to see if
   // gray map background is displayed since wraparound was disabled
+  //m_graphicsView->exportImage();
 
   // now wait for the view's draw status to be complete
   QTRY_COMPARE(m_graphicsView->drawStatus(), DrawStatus::Completed);

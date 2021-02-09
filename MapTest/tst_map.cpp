@@ -17,9 +17,10 @@ private slots:
   void test_3_async_method2();
   void test_4_advanced_techniques();
   void test_5_advanced_techniques2();
-  void test_6_with_failure();
-  void test_7_data_driven_test_data();
-  void test_7_data_driven_test();
+  void test_6_data_driven_test_data();
+  void test_6_data_driven_test();
+  void test_7_with_failure();
+  void test_8_with_unknown_failure();
 
 private:
   const QUrl m_webMapUrl {"https://www.arcgis.com/home/webmap/viewer.html?webmap=56bb3556bc5542cfa217348b09c80efb"};
@@ -84,18 +85,7 @@ void MapTest::test_5_advanced_techniques2()
   QTRY_COMPARE(map->loadStatus(), LoadStatus::Loaded);
 }
 
-void MapTest::test_6_with_failure()
-{
-  Map* map = new Map(m_webMapUrl, this);
-
-  map->load();
-
-  QTRY_COMPARE(map->loadStatus(), LoadStatus::Loaded);
-
-  QCOMPARE(map->operationalLayers()->size(), -1);
-}
-
-void MapTest::test_7_data_driven_test_data()
+void MapTest::test_6_data_driven_test_data()
 {
   QTest::addColumn<QUrl>("url");
 
@@ -108,7 +98,7 @@ void MapTest::test_7_data_driven_test_data()
   QTest::newRow("data sharing url") << dataSharing;
 }
 
-void MapTest::test_7_data_driven_test()
+void MapTest::test_6_data_driven_test()
 {
   QFETCH(QUrl, url);
 
@@ -117,6 +107,29 @@ void MapTest::test_7_data_driven_test()
   map->load();
 
   QTRY_COMPARE(map->loadStatus(), LoadStatus::Loaded);
+}
+
+void MapTest::test_7_with_failure()
+{
+  Map* map = new Map(m_webMapUrl, this);
+
+  map->load();
+
+  QTRY_COMPARE(map->loadStatus(), LoadStatus::Loaded);
+
+  QCOMPARE(map->operationalLayers()->size(), 16);
+}
+
+void MapTest::test_8_with_unknown_failure()
+{
+  Map* map = new Map(m_webMapUrl, this);
+
+  map->load();
+
+  QTRY_COMPARE(map->loadStatus(), LoadStatus::Loaded);
+
+//  QEXPECT_FAIL("", "unknown failure, need to follow up with GIS analyst", Abort);
+  QCOMPARE(map->operationalLayers()->size(), 16);
 }
 
 QTEST_GUILESS_MAIN(MapTest)

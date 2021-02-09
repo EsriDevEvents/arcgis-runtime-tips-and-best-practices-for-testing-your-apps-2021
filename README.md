@@ -1,2 +1,4 @@
-# ArcGIS_Runtime_Tips_and_Best_Practices_for_Testing_Your_Apps
+# ArcGIS Runtime Tips and Best Practices for Testing Your Apps
 Test projects used in DevSummit 2021 demo theater
+
+This repo includes the Qt Test and Qml Test projects shown in the demo theater recording.
